@@ -1,0 +1,45 @@
+/* General */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #f4f4f4; /* Light Gray */
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  flex: 1;
+}
+
+/* Navbar */
+.nav-wrapper {
+  background-color: #4682b4; /* Steel Blue */
+  padding: 10px 15px;
+}
+
+.nav-wrapper ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-wrapper ul li {
+  margin: 0 10px;
+}
+
+.nav-wrapper ul li a {
+  color: white;
+  font-weight: bold;
+}
+
+/* Footer */
+.page-footer {
+  background-color: #ff7f50; /* Coral */
+  color: white;
+  text-align: right;
+  padding: 10px 15px;
+}

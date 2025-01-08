@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Car List</h1>
+
+{% for car in cars %}
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ car.name }}</span>
+    <p>Brand: {{ car.brand }}</p>
+    <p>Description: {{ car.description }}</p>
+    <p>Year: {{ car.year }}</p>
+    {% if car.image %}
+    <div>
+      {% load static %}
+      <img
+        src="{% static car.image|cut:'main_app/static/' %}"
+        width="200px"
+        height="Auto"
+      />
+    </div>
+    {% else %}
+    <p>No image available</p>
+    {% endif %}
+  </div>
+</div>
+{% endfor %} {% endblock %}

@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'carcollector.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'catcollector',
+        'NAME': 'carcollector',
         'USER': 'postgres',
         'PASSWORD': '12345678',
         'PORT': 5432
