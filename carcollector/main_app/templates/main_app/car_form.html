@@ -1,0 +1,52 @@
+{% extends 'base.html' %} {% load custom_filters %} {% block content %}
+
+<div class="d-flex justify-content-center align-items-center py-5">
+  <div class="container" style="max-width: 600px">
+    {% if object %}
+    <h1 class="display-5 text-center mb-4">
+      Edit <span class="text-primary">{{ object.name }}</span>
+    </h1>
+    {% else %}
+    <h1 class="display-5 text-center mb-4">Add a Car</h1>
+    {% endif %}
+
+    <div class="card shadow p-4">
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- Name -->
+        {% if not object %}
+        <div class="mb-3">
+          <label for="id_name" class="form-label">Name</label>
+          {{ form.name|addclass:"form-control" }}
+        </div>
+        {% else %}
+        <!-- Hidden input for Name when editing -->
+        {{ form.name.as_hidden }} {% endif %}
+        <!-- Brand -->
+        <div class="mb-3">
+          <label for="id_brand" class="form-label">Brand</label>
+          {{ form.brand|addclass:"form-control" }}
+        </div>
+        <!-- Description -->
+        <div class="mb-3">
+          <label for="id_description" class="form-label">Description</label>
+          {{ form.description|addclass:"form-control" }}
+        </div>
+        <!-- Year -->
+        <div class="mb-3">
+          <label for="id_year" class="form-label">Year</label>
+          {{ form.year|addclass:"form-control" }}
+        </div>
+        <!-- Image -->
+        <div class="mb-3">
+          <label for="id_image" class="form-label">Image</label>
+          {{ form.image|addclass:"form-control" }}
+        </div>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-success w-100">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

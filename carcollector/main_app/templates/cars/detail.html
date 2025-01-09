@@ -1,0 +1,109 @@
+{% extends 'base.html' %} {% load custom_filters %} {% block content %}
+
+<div class="container my-5">
+  <h1 class="display-5 text-center">Car Details</h1>
+
+  <!-- Car Details Section -->
+  <div class="mt-4 mb-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title text-primary">{{ car.name }}</h5>
+        <p><strong>Brand:</strong> {{ car.brand|default:"N/A" }}</p>
+        <p>
+          <strong>Description:</strong> {{ car.description|default:"No
+          description available" }}
+        </p>
+        <p><strong>Year:</strong> {{ car.year|default:"Unknown year" }}</p>
+      </div>
+      <div class="card-footer d-flex justify-content-between">
+        <a
+          href="{% url 'cars_update' car.id %}"
+          class="btn btn-warning btn-sm"
+          aria-label="Edit {{ car.name }}"
+          >Edit</a
+        >
+        <a
+          href="{% url 'cars_delete' car.id %}"
+          class="btn btn-danger btn-sm"
+          aria-label="Delete {{ car.name }}"
+          >Delete</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- Service Section -->
+  <div>
+    <!-- Add Service Form -->
+    <h5>Add Service</h5>
+    <form action="{% url 'add_service' car.id %}" method="post" class="mb-4">
+      {% csrf_token %}
+      <div class="row g-3">
+        <!-- Date Field -->
+        <div class="col-md-6">
+          <label for="id_date" class="form-label">Date</label>
+          <div class="input-group">
+            {{ service_form.date|addclass:"form-control datepicker" }}
+            <span class="input-group-text">
+              <i class="bi bi-calendar"></i>
+            </span>
+          </div>
+        </div>
+        <!-- Service Type Field -->
+        <div class="col-md-6">
+          <label for="id_service_type" class="form-label">Service Type</label>
+          {{ service_form.service_type|addclass:"form-control" }}
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary mt-3 w-100">
+        Add Service
+      </button>
+    </form>
+
+    <!-- Status Message -->
+    {% if car.serviced_today %}
+    <p class="alert alert-success text-center">
+      This car has been serviced today.
+    </p>
+    {% else %}
+    <p class="alert alert-danger text-center">
+      This car has not been serviced today.
+    </p>
+    {% endif %}
+
+    <!-- Service Records Table -->
+    <h5>Service Records</h5>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for service in car.service_set.all %}
+        <tr>
+          <td>{{ service.date }}</td>
+          <td>{{ service.get_service_type_display|default:"N/A" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Initialize Datepicker for Bootstrap -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const dateInput = document.querySelector('.datepicker')
+      if (dateInput) {
+        $(dateInput).datepicker({
+          format: 'yyyy-mm-dd',
+          autoclose: true,
+          todayHighlight: true
+        })
+      }
+    })
+  </script>
+
+  {% endblock %}
+</div>

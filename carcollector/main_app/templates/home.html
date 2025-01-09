@@ -1,9 +1,14 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
-<h1>Welcome to Car Collector</h1>
-<p>Manage and showcase your car collection effortlessly!</p>
-<hr>
-<p><a href="/cars" class="btn">View All My Cars</a></p>
+<div class="container text-center my-5">
+  <h1 class="display-4 text-primary">🚗 Welcome to Car Collector 🚘</h1>
+  <p class="lead">Manage and showcase your car collection effortlessly!</p>
+  <hr class="my-4" />
+  <p>
+    <a href="/cars" class="btn btn-primary btn-lg">
+      <i class="bi bi-car-front"></i> View All My Cars
+    </a>
+  </p>
+</div>
 
 {% endblock %}

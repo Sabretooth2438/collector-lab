@@ -1,4 +1,12 @@
 from django.db import models
+from django.urls import reverse
+from datetime import date
+
+SERVICES = (
+    ('M', 'Maintenance'),
+    ('R', 'Repair'),
+    ('C', 'Cleaning'),
+)
 
 # Create your models here.
 class Car(models.Model):
@@ -7,3 +15,23 @@ class Car(models.Model):
     description = models.TextField()
     year = models.IntegerField()
     image = models.ImageField(upload_to='main_app/static/uploads/', default="")
+
+    def get_absolute_url(self):
+        return reverse("detail", kwargs={"car_id": self.id})
+    
+    def __str__(self):
+        return self.name
+    
+    def serviced_today(self):
+        return self.service_set.filter(date=date.today()).count() >= len(SERVICES)
+
+class Service(models.Model):
+    date = models.DateField()
+    service_type = models.CharField(max_length=1, choices=SERVICES, default=SERVICES[0][0])
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.car.name} {self.get_service_type_display()} on {self.date}"
+    
+    class Meta:
+        ordering = ['-date']
