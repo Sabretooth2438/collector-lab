@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import Car
+from .models import Car, Accessory
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 from .forms import ServiceForm
 from django.urls import reverse_lazy
 
@@ -16,6 +17,24 @@ class CarDelete(DeleteView):
     model = Car
     success_url = reverse_lazy('cars_index')
 
+class AccessoryList(ListView):
+    model = Accessory
+
+class AccessoryDetail(DetailView):
+    model = Accessory
+
+class AccessoryCreate(CreateView):
+    model = Accessory
+    fields = ['name', 'type', 'price']  # Fields in the Accessory model
+
+class AccessoryUpdate(UpdateView):
+    model = Accessory
+    fields = ['name', 'type', 'price']
+
+class AccessoryDelete(DeleteView):
+    model = Accessory
+    success_url = reverse_lazy('accessories_index')
+
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
@@ -30,7 +49,12 @@ def cars_index(request):
 def cars_detail(request, car_id):
     car = Car.objects.get(id=car_id)
     service_form = ServiceForm()
-    return render(request, 'cars/detail.html', {'car': car,'service_form': service_form })
+    accessories_car_doesnt_have = Accessory.objects.exclude(id__in=car.accessories.all().values_list('id'))
+    return render(request, 'cars/detail.html', {
+        'car': car,
+        'service_form': service_form,
+        'accessories': accessories_car_doesnt_have,
+    })
 
 def add_service(request, car_id):
     form = ServiceForm(request.POST)
@@ -38,4 +62,12 @@ def add_service(request, car_id):
         new_service = form.save(commit=False)
         new_service.car_id = car_id
         new_service.save()
+    return redirect('detail', car_id=car_id)
+
+def assoc_accessory(request, car_id, accessory_id):
+    Car.objects.get(id=car_id).accessories.add(accessory_id)
+    return redirect('detail', car_id=car_id)
+
+def unassoc_accessory(request, car_id, accessory_id):
+    Car.objects.get(id=car_id).accessories.remove(accessory_id)
     return redirect('detail', car_id=car_id)

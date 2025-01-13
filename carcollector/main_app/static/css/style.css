@@ -33,3 +33,135 @@ main {
   border-color: #dee2e6;
   box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.1);
 }
+
+/* Form Container */
+.form-container {
+  max-width: 600px;
+}
+
+/* Full Image */
+.image-full {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Card Image */
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Fallback Image */
+.fallback-image {
+  height: 200px;
+  background-color: #6c757d;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+}
+
+/* Logo Styling */
+.navbar-logo {
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Form Container */
+.form-container {
+  max-width: 600px;
+}
+
+/* Full Image */
+.image-full {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Card Image */
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Fallback Image */
+.fallback-image {
+  height: 200px;
+  background-color: #6c757d;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+}
+
+/* Logo Styling */
+.navbar-logo {
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Calendar container */
+.datepicker-dropdown {
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+/* Day cells */
+.datepicker table tr td,
+.datepicker table tr th {
+  font-size: 0.95rem;
+  padding: 0.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Hover effect on normal days */
+.datepicker table tr td.day:hover,
+.datepicker table tr td.day.focused {
+  background-color: #e2e6ea;
+  cursor: pointer;
+}
+
+/* Selected day */
+.datepicker table tr td.active,
+.datepicker table tr td.active:hover {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+/* Today indicator (small triangle) */
+.datepicker table tr td.today:before {
+  content: '';
+  border-bottom: 7px solid #0d6efd;
+  border-left: 7px solid transparent;
+  position: absolute;
+  bottom: 4px;
+  left: 40%;
+}
+
+/* Nav arrows if needed (requires icon library) */
+.datepicker .prev i::before {
+  content: '\f104';
+  font-family: 'Font Awesome 6 Free';
+}
+.datepicker .next i::before {
+  content: '\f105';
+  font-family: 'Font Awesome 6 Free';
+}

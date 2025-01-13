@@ -1,18 +1,31 @@
-{% extends 'base.html' %} {% load custom_filters %} {% block content %}
-
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block content %}
 <div class="container my-5">
   <h1 class="display-5 text-center">Car Details</h1>
 
   <!-- Car Details Section -->
   <div class="mt-4 mb-4">
     <div class="card shadow-sm">
+      {% load static %}
+      <!-- Car Image -->
+      {% if car.image %}
+      <div class="text-center p-3">
+        <img
+          src="{% static car.image|cut:'main_app/static/' %}"
+          alt="{{ car.name }}"
+          class="img-fluid image-full"
+        />
+      </div>
+      {% else %}
+      <div class="fallback-image">No Image Available</div>
+      {% endif %}
+
+      <!-- Car Details -->
       <div class="card-body">
         <h5 class="card-title text-primary">{{ car.name }}</h5>
         <p><strong>Brand:</strong> {{ car.brand|default:"N/A" }}</p>
-        <p>
-          <strong>Description:</strong> {{ car.description|default:"No
-          description available" }}
-        </p>
+        <p><strong>Description:</strong> {{ car.description}}</p>
         <p><strong>Year:</strong> {{ car.year|default:"Unknown year" }}</p>
       </div>
       <div class="card-footer d-flex justify-content-between">
@@ -91,6 +104,60 @@
     </table>
   </div>
 
+  <!-- Associated Accessories -->
+  <div>
+    <h5>{{ car.name }}'s Accessories</h5>
+    <div class="row">
+      {% if car.accessories.count %}
+      {% for accessory in car.accessories.all %}
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h6 class="card-title">
+              {{ accessory.name }}
+            </h6>
+            <p><strong>Type:</strong> {{ accessory.type }}</p>
+            <p><strong>Price:</strong> ${{ accessory.price }}</p>
+          </div>
+          <div class="card-footer">
+            <form action="{% url 'unassoc_accessory' car.id accessory.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <p>No Accessories Assigned</p>
+      {% endif %}
+    </div>
+
+    <!-- Available Accessories -->
+    <h5 class="mt-5">Available Accessories</h5>
+    <div class="row">
+      {% for accessory in accessories %}
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h6 class="card-title">
+              {{ accessory.name }}
+            </h6>
+            <p><strong>Type:</strong> {{ accessory.type }}</p>
+            <p><strong>Price:</strong> ${{ accessory.price }}</p>
+          </div>
+          <div class="card-footer">
+            <form action="{% url 'assoc_accessory' car.id accessory.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary btn-sm">Add</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
   <!-- Initialize Datepicker for Bootstrap -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -104,6 +171,4 @@
       }
     })
   </script>
-
-  {% endblock %}
-</div>
+{% endblock %}

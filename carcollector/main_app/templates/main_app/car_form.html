@@ -1,7 +1,9 @@
-{% extends 'base.html' %} {% load custom_filters %} {% block content %}
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block content %}
 
 <div class="d-flex justify-content-center align-items-center py-5">
-  <div class="container" style="max-width: 600px">
+  <div class="container form-container">
     {% if object %}
     <h1 class="display-5 text-center mb-4">
       Edit <span class="text-primary">{{ object.name }}</span>

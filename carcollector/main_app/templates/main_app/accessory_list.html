@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block content %}
+
+<div class="container my-5">
+  <h1 class="display-5 text-center mb-4">Accessory List</h1>
+
+  <div class="row g-4">
+    {% for accessory in accessory_list %}
+    <div class="col-md-4">
+      <a href="{% url 'accessories_detail' accessory.id %}" class="text-decoration-none">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title text-primary">{{ accessory.name }}</h5>
+            <p><strong>Type:</strong> {{ accessory.type }}</p>
+            <p><strong>Price:</strong> ${{ accessory.price }}</p>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

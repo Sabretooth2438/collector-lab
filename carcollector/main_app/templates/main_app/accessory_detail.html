@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container my-5">
+  <h1 class="display-5 text-center mb-4">Accessory Details</h1>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title text-primary">{{ accessory.name }}</h5>
+          <p><strong>Type:</strong> {{ accessory.type }}</p>
+          <p><strong>Price:</strong> ${{ accessory.price }}</p>
+        </div>
+
+        <div class="card-footer d-flex justify-content-between">
+          <a href="{% url 'accessories_update' accessory.id %}" class="btn btn-warning btn-sm">Edit</a>
+          <a href="{% url 'accessories_delete' accessory.id %}" class="btn btn-danger btn-sm">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -8,6 +8,18 @@ SERVICES = (
     ('C', 'Cleaning'),
 )
 
+class Accessory(models.Model):
+    name = models.CharField(max_length=50)
+    type = models.CharField(max_length=50)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse('accessories_detail', kwargs={'pk': self.id})
+
+
 # Create your models here.
 class Car(models.Model):
     name = models.CharField(max_length=100)
@@ -15,6 +27,7 @@ class Car(models.Model):
     description = models.TextField()
     year = models.IntegerField()
     image = models.ImageField(upload_to='main_app/static/uploads/', default="")
+    accessories = models.ManyToManyField(Accessory)
 
     def get_absolute_url(self):
         return reverse("detail", kwargs={"car_id": self.id})
