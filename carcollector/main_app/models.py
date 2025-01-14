@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from datetime import date
+from django.contrib.auth.models import User
 
 SERVICES = (
     ('M', 'Maintenance'),
@@ -28,6 +29,7 @@ class Car(models.Model):
     year = models.IntegerField()
     image = models.ImageField(upload_to='main_app/static/uploads/', default="")
     accessories = models.ManyToManyField(Accessory)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
         return reverse("detail", kwargs={"car_id": self.id})

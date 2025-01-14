@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
+    
     # Car Routes
     path('cars/', views.cars_index, name='cars_index'),
     path('cars/<int:car_id>/', views.cars_detail, name='detail'),
@@ -22,4 +23,7 @@ urlpatterns = [
     # Associate and Unassociate Accessories with Cars (Many-to-Many)
     path('cars/<int:car_id>/assoc_accessory/<int:accessory_id>/', views.assoc_accessory, name='assoc_accessory'),
     path('cars/<int:car_id>/unassoc_accessory/<int:accessory_id>/', views.unassoc_accessory, name='unassoc_accessory'),
+
+    # Signup route
+    path('accounts/signup/', views.signup, name='signup'),
 ]
