@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class CarCreate(LoginRequiredMixin, CreateView):
     model = Car
-    fields = '__all__'
+    fields = ['name', 'brand', 'description', 'year', 'image']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -92,7 +92,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('index')
+            return redirect('cars_index')
         else:
             error_message = 'Invalid sign up - try again'
             
